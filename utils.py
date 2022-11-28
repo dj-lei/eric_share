@@ -24,13 +24,6 @@ elif 'linux' in platform:
     env = 'PRODUCT'
 
 
-def clean_special_symbols(text, symbol):
-    for ch in ['/','*','{','}','[',']','(',')','#','+','-','!','=',':',',','"','\'','>','<','@','`','$','%','^','&','|']:
-        if ch in text:
-            text = text.replace(ch,symbol)
-    return re.sub(symbol+"+", symbol, text)
-
-
 def iterate_files_in_directory(directory):
     # iterate over files in
     # that directory

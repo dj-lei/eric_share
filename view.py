@@ -40,7 +40,7 @@ def download_theme(filename):
 # simple files server
 @app.route("/download/<filename>")
 def download(filename):
-    path = cf['ENV_'+env]['TEXT_ANALYSIS_THEMES_STORE_PATH']+filename
+    path = cf['ENV_'+env]['TEXT_ANALYSIS_APPS_STORE_PATH']+filename
     return send_file(path)
 
 if __name__ == '__main__':

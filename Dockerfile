@@ -14,8 +14,8 @@ RUN mkdir -p /ericsson_share
 
 WORKDIR /ericsson_share
 COPY ./ ./
-RUN pip3 install -r requirements.txt
+RUN pip3 install -r requirements.txt -i http://mirrors.aliyun.com/pypi/simple/ --trusted-host mirrors.aliyun.com
 
-EXPOSE 8000
+EXPOSE 8001
 
 CMD ["python3", "view.py"]
