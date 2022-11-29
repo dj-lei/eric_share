@@ -1,6 +1,6 @@
 import warnings
 from utils import *
-from flask import Flask, jsonify, request, send_file
+from flask import Flask, jsonify, request, send_file, render_template
 app = Flask(__name__)
 
 
@@ -36,6 +36,10 @@ def download_theme(filename):
         filename = request.view_args['filename']
         return send_file(cf['ENV_'+env]['TEXT_ANALYSIS_THEMES_STORE_PATH']+filename)
     return jsonify({'status': 'error'})
+
+@app.route("/")
+def index():
+    return render_template("index.html", files=iterate_files_in_directory(cf['ENV_'+env]['TEXT_ANALYSIS_APPS_STORE_PATH']))
 
 # simple files server
 @app.route("/download/<filename>")
