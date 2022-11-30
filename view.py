@@ -1,6 +1,6 @@
 import warnings
 from utils import *
-from flask import Flask, jsonify, request, send_file, render_template
+from flask import Flask, jsonify, request, send_file, render_template, redirect, url_for
 app = Flask(__name__)
 
 
@@ -46,6 +46,11 @@ def index():
 def download(filename):
     path = cf['ENV_'+env]['TEXT_ANALYSIS_APPS_STORE_PATH']+filename
     return send_file(path)
+
+# simple online video server
+@app.route("/display/<filename>")
+def display(filename):
+    return redirect(url_for('static', filename='assets/' + filename), code=301)
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=8001)
