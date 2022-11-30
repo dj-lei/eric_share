@@ -1,9 +1,9 @@
 import warnings
 from utils import *
-from flask import Flask, jsonify, request, send_file, render_template, redirect, url_for
+from flask import Flask, jsonify, request, send_file, render_template, redirect
 import sys
 
-app = Flask(__name__, static_url_path=cf['ENV_'+env]['TEXT_ANALYSIS_COURSE_PATH'])
+app = Flask(__name__)
 
 @app.after_request
 def apply_caching(response):
@@ -51,7 +51,7 @@ def download(filename):
 # simple online video server
 @app.route("/display/<filename>")
 def display(filename):
-    return redirect(url_for('static', filename='assets/' + filename), code=301)
+    return redirect(cf['ENV_'+env]['TEXT_ANALYSIS_COURSE_PATH'] + filename, code=301)
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=8001)
