@@ -12,30 +12,30 @@ def apply_caching(response):
     response.headers.add('Access-Control-Allow-Origin', '*')
     return response
 
-@app.route("/query_themes", methods=['GET'])
-def query_themes():
+@app.route("/query_configs", methods=['GET'])
+def query_configs():
     if request.method == 'GET':
-        themes = iterate_files_in_directory(cf['ENV_'+env]['TEXT_ANALYSIS_THEMES_STORE_PATH'])
-        return jsonify({'status': 'ok', 'themes': themes})
+        configs = iterate_files_in_directory(cf['ENV_'+env]['TEXT_ANALYSIS_CONFIGS_STORE_PATH'])
+        return jsonify({'status': 'ok', 'configs': configs})
     return jsonify({'status': 'error'})
 
-@app.route("/save_theme", methods=['GET'])
-def save_theme():
+@app.route("/save_config", methods=['GET'])
+def save_config():
     if request.method == 'GET':
         filename = request.args.get('filename')
-        theme = request.args.get('theme')
-        path = cf['ENV_'+env]['TEXT_ANALYSIS_THEMES_STORE_PATH']+filename.split('\\')[-1]
+        config = request.args.get('config')
+        path = cf['ENV_'+env]['TEXT_ANALYSIS_CONFIGS_STORE_PATH']+filename.split('\\')[-1]
         f = open(path, "w")
-        f.write(theme)
+        f.write(config)
         f.close()
         return jsonify({'status': 'ok'})
     return jsonify({'status': 'error'})
 
-@app.route("/download_theme/<filename>", methods=['GET'])
-def download_theme(filename):
+@app.route("/download_config/<filename>", methods=['GET'])
+def download_config(filename):
     if request.method == 'GET':
         filename = request.view_args['filename']
-        return send_file(cf['ENV_'+env]['TEXT_ANALYSIS_THEMES_STORE_PATH']+filename)
+        return send_file(cf['ENV_'+env]['TEXT_ANALYSIS_CONFIGS_STORE_PATH']+filename)
     return jsonify({'status': 'error'})
 
 @app.route("/")
